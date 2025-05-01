@@ -66,4 +66,22 @@ li .eliminar {
   opacity: 0.7;
 }
 
+.filtros {
+  margin-top: 15px;
+}
+
+.filtros button {
+  margin: 0 5px;
+  padding: 6px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filtros button:hover {
+  background-color: #0056b3;
+}
+
       

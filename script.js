@@ -59,6 +59,22 @@ function guardarTareas() {
   localStorage.setItem("tareas", JSON.stringify(tareas));
 }
 
+function filtrar(tipo) {
+  const tareas = document.querySelectorAll("#lista-tareas li");
+
+  tareas.forEach(tarea => {
+    const estaCompletada = tarea.classList.contains("completada");
+
+    if (tipo === "todas") {
+      tarea.style.display = "block";
+    } else if (tipo === "pendientes") {
+      tarea.style.display = estaCompletada ? "none" : "block";
+    } else if (tipo === "completadas") {
+      tarea.style.display = estaCompletada ? "block" : "none";
+    }
+  });
+}
+
 
 
   
