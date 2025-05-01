@@ -59,13 +59,11 @@ li .eliminar {
   cursor: pointer;
   border-radius: 3px;
 }
-
 .completada {
   text-decoration: line-through;
   color: gray;
   opacity: 0.7;
 }
-
 .filtros {
   margin-top: 15px;
 }

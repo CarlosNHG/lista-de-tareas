@@ -23,7 +23,22 @@ function agregarTarea() {
 
 function crearTarea(texto, completada) {
   const li = document.createElement("li");
-  li.textContent = texto;
+
+  // Crear un span para el texto editable
+  const span = document.createElement("span");
+  span.textContent = texto;
+
+  // Doble clic para editar
+  span.ondblclick = function () {
+  const nuevoTexto = prompt("Editar tarea:", span.textContent);
+  if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
+      span.textContent = nuevoTexto.trim();
+      guardarTareas();
+  }
+  };
+
+  // Añade el span al <li> en vez de texto directo
+  li.appendChild(span);
 
   if (completada) {
     li.classList.add("completada");
@@ -33,6 +48,7 @@ function crearTarea(texto, completada) {
   li.onclick = function () {
     li.classList.toggle("completada");
     guardarTareas();
+    actualizarContador();
   };
 
   const btnEliminar = document.createElement("button");
@@ -42,16 +58,18 @@ function crearTarea(texto, completada) {
     event.stopPropagation(); // evita que se dispare también el clic del li
     li.remove();
     guardarTareas();
+    actualizarContador();
   };
 
   li.appendChild(btnEliminar);
   document.getElementById("lista-tareas").appendChild(li);
+  actualizarContador();
 }
 
 function guardarTareas() {
   const tareas = [];
   document.querySelectorAll("#lista-tareas li").forEach(li => {
-    const texto = li.childNodes[0].nodeValue.trim();
+    const texto = li.querySelector("span").textContent.trim();
     const completada = li.classList.contains("completada");
     tareas.push({ texto, completada });
   });
@@ -73,6 +91,13 @@ function filtrar(tipo) {
       tarea.style.display = estaCompletada ? "block" : "none";
     }
   });
+}
+  
+function actualizarContador() {
+const totalPendientes = Array.from(document.querySelectorAll("#lista-tareas li"))
+  .filter(li => !li.classList.contains("completada")).length;
+
+document.getElementById("contador").textContent = `Tareas pendientes: ${totalPendientes}`;
 }
 
 
